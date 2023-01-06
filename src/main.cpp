@@ -1,5 +1,9 @@
 #ifdef BOARD_ESP32C3
-#include "./boards/main_esp32c3.h"
+#include "./boards/esp32c3_main.h"
 #else
-#include "./boards/main_samd51.h"
+#ifdef BOARD_SAMD51_TRELLIS
+#include "./boards/samd51_trellis_main.h"
+#else
+#include "./boards/samd51_main.h"
+#endif
 #endif

@@ -1,6 +1,9 @@
+#include <Adafruit_NeoTrellisM4.h>
 #include <Arduino.h>
 
-#include "dac_samd51.h"
+#include "samd51_dac.h"
+
+#define SAMPLE_RATE AUDIO_TC_FREQ
 
 #ifndef APP_LOG
 #define APP_LOG Serial.printf
@@ -11,11 +14,19 @@
 void audioCallback(const uint32_t* end, uint32_t* dest)
 {
     do {
-        uint32_t sample = getSample() * 0x7FFF;
+        int16_t sample = getSample() * 16383;
+        // int16_t sample = getSample() *  0x7FFF;
         // uint32_t sample = getSample() * 16383;
+        // uint32_t sample = getSample() * 0x7FFF;
         // uint32_t sample = getSample() * 2147483647;
-        *dest++ = sample;
         // *dest++ = sample;
+        // *dest++ = sample;
+
+        uint32_t out = ((sample & 0xFFFF) + 32768) >> 1;
+        // uint32_t out = ((sample & 0xFFFF) + 32768) >> 4;
+        // out |= (((sample & 0xFFFF) + 32768) >> 4) << 16;
+        *dest++ = out;
+        *dest++ = out;
     } while (dest < end);
 }
 
@@ -30,8 +41,8 @@ void setup()
 uint8_t counter = 0;
 void loop()
 {
-    // if (counter < 3) {
-    if (counter < 10) {
+    if (counter < 5) {
+        // if (counter < 10) {
         Serial.println("Trigger sound");
         triggerSound();
         delay(1000);

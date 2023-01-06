@@ -20,6 +20,7 @@
 #define AUDIO_PRESCALER TC_CTRLA_PRESCALER_DIV16
 #define AUDIO_TC_FREQ 44100
 #define AUDIO_BLOCK_SAMPLES 128
+// #define AUDIO_BLOCK_SAMPLES 64
 
 static uint32_t dac_buffer[AUDIO_BLOCK_SAMPLES * 2];
 
@@ -40,7 +41,6 @@ static audio_block_t block_silent;
 void defaultCbIsrDac(const uint32_t* end, uint32_t* dest)
 {
     do {
-        *dest++ = 0;
         *dest++ = 0;
     } while (dest < end);
 }

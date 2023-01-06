@@ -6,7 +6,9 @@
 #define IRAM_ATTR
 #endif
 
+#ifndef SAMPLE_RATE
 #define SAMPLE_RATE 44100
+#endif
 const float SAMPLE_PER_MS = SAMPLE_RATE / 1000.0f;
 
 #endif
