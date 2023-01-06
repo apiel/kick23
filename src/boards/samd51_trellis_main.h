@@ -17,21 +17,8 @@ void audioCallback(const uint32_t* end, uint32_t* dest)
 {
     do {
         int16_t sample = getSample() * 16383;
-        // int16_t sample = getSample() *  0x7FFF;
-        // uint32_t sample = getSample() * 16383;
-        // uint32_t sample = getSample() * 0x7FFF;
-        // uint32_t sample = getSample() * 2147483647;
-        // *dest++ = sample;
-        // *dest++ = sample;
-
-        // uint32_t out = ((sample & 0xFFFF) + 32768) >> 1;
-        // uint32_t out = ((sample & 0xFFFF) + 32768) >> 4;
-        // out |= (((sample & 0xFFFF) + 32768) >> 4) << 16;
-
-        // uint32_t out = ((sample & 0xFFFF) + 32768) >> 4;
-        // out |= (((sample & 0xFFFF) + 32768) >> 4) << 16;
-        // *dest++ = out * 5;
-
+        // uint32_t out = ((sample & 0xFFFF) + 32768) >> 4 << 16;
+        // uint32_t out = ((sample & 0xFFFF) + 32768) >> 4 << 18;
         uint32_t out = ((sample & 0xFFFF) + 32768) >> 4 << 19;
         *dest++ = out;
     } while (dest < end);
