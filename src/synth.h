@@ -4,10 +4,7 @@
 #include <stdint.h>
 
 #include "def.h"
-#include "wavetable_sine.h"
-#include "wavetable_square.h"
-
-#define WT_FRAME_SAMPLE_COUNT 2048
+#include "wavetable.h"
 
 float frequency = 600.0f;
 
@@ -52,24 +49,17 @@ float sampleStep = 1.0f;
 float IRAM_ATTR getSample()
 {
     if (sampleCount < sampleCountDuration) {
-        // float envAmp = envelop();
-        // float envFreq = 1.0f - envelop();
-        // float envFreq = envelop2();
         float envFreq = envelop(envelopFreq, &envelopFreqIndex);
         float envAmp = envelop(envelopAmp, &envelopAmpIndex);
-        // float envAmp = 1.0f;
-        // float envFreq = 0.0f;
 
-        // sampleStep = WT_FRAME_SAMPLE_COUNT * (frequency + (envFreq * freqModulationRange)) / SAMPLE_RATE;
-        sampleStep = WT_FRAME_SAMPLE_COUNT * (frequency * envFreq) / SAMPLE_RATE;
+        sampleStep = WAVETABLE_SIZE * (frequency * envFreq) / SAMPLE_RATE;
 
         sampleIndex += sampleStep;
-        while (sampleIndex >= WT_FRAME_SAMPLE_COUNT) {
-            sampleIndex -= WT_FRAME_SAMPLE_COUNT;
+        while (sampleIndex >= WAVETABLE_SIZE) {
+            sampleIndex -= WAVETABLE_SIZE;
         }
         sampleCount++;
-        // return ((WT_Sine[(uint16_t)sampleIndex] / 32768.0) * 255.0 + 128.0) * envAmp;
-        return (WT_Sine[(uint16_t)sampleIndex] / 32768.0) * envAmp;
+        return wavetable[(uint16_t)sampleIndex] * envAmp;
     }
     return 0;
 }
