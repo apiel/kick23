@@ -6,6 +6,8 @@
 float potValue[POT_COUNT] = { 0, 0, 0 };
 
 float frequency = 600.0f;
+float morph = 0.0f;
+unsigned int wavetablePos = 0;
 
 // 90ms kick duration
 // uint sampleCountDuration = 90 * SAMPLE_PER_MS;

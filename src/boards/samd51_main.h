@@ -5,7 +5,7 @@
 
 #define SAMPLE_RATE AUDIO_TC_FREQ
 
-#include "synth.h"
+#include "app.h"
 
 void audioCallback(const uint32_t* end, uint32_t* dest)
 {
@@ -32,16 +32,10 @@ void setup()
     Serial.println("Kick23");
 
     initDac(audioCallback);
+    appInit();
 }
 
-uint8_t counter = 0;
 void loop()
 {
-    if (counter < 5) {
-        // if (counter < 10) {
-        Serial.println("Trigger sound");
-        triggerSound();
-        delay(1000);
-        counter++;
-    }
+    appLoop();
 }

@@ -5,7 +5,7 @@
 
 #define SAMPLE_RATE AUDIO_TC_FREQ
 
-#include "synth.h"
+#include "app.h"
 
 Adafruit_NeoTrellisM4 trellis = Adafruit_NeoTrellisM4();
 
@@ -29,21 +29,14 @@ void setup()
 
     trellis.begin();
     trellis.setBrightness(255);
+    appInit();
 }
 
-uint8_t counter = 0;
 void loop()
 {
-    if (counter < 5) {
-        // if (counter < 10) {
-        Serial.println("Trigger sound");
-        triggerSound();
-        delay(1000);
-        counter++;
-    }
+    appLoop();
 
     trellis.tick();
-
     while (trellis.available()) {
         keypadEvent e = trellis.read();
         int keyindex = e.bit.KEY;

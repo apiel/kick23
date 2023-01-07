@@ -94,20 +94,16 @@ void setup()
     timerAttachInterrupt(timer, &onTimer, true);
     timerAlarmWrite(timer, 1, true); // Trigger every 1 tick
     timerAlarmEnable(timer);
+
+    appInit();
 }
 
 // Variables will change:
 int lastState = HIGH; // the previous state from the input pin
 
-uint8_t counter = 0;
 void loop()
 {
-    if (counter < 3) {
-        Serial.println("Trigger sound");
-        triggerSound();
-        delay(1000);
-        counter++;
-    }
+    appLoop();
 
     int currentState = digitalRead(BUTTON_PIN);
     if (currentState != lastState) {

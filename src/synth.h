@@ -4,7 +4,6 @@
 #include <stdint.h>
 
 #include "def.h"
-#include "rotary.h" // note necessary to be there, but just to avoid to include it in all main.h file for each board
 #include "state.h"
 #include "wavetable.h"
 
@@ -40,7 +39,7 @@ float IRAM_ATTR getSample()
             sampleIndex -= WAVETABLE_SIZE;
         }
         sampleCount++;
-        return wavetable[(uint16_t)sampleIndex] * envAmp;
+        return wavetable[wavetablePos + (uint16_t)sampleIndex] * envAmp;
     }
     return 0;
 }
