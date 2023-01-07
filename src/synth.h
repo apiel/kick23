@@ -39,7 +39,7 @@ float IRAM_ATTR getSample()
             sampleIndex -= WAVETABLE_SIZE;
         }
         sampleCount++;
-        return wavetable[wavetablePos + (uint16_t)sampleIndex] * envAmp;
+        return wavetable[wavetablePos + (uint16_t)sampleIndex] * envAmp * volume;
     }
     return 0;
 }
