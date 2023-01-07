@@ -7,6 +7,7 @@
 #include "state.h"
 #include "ui.h"
 #include "wavetable.h"
+#include "button.h"
 
 #ifndef UI_PRINT
 #define UI_PRINT printf
@@ -21,6 +22,7 @@ enum {
     UI_MODE_WAVE,
     UI_MODE_AMP,
     UI_MODE_FREQ,
+    UI_MODE_BUTTON,
     UI_MODE_COUNT
 };
 
@@ -59,6 +61,11 @@ void render()
         UI_PRINT("%cM%.1f\n", cursor(1), morph);
         UI_PRINT("%c%dHz\n", cursor(2), (int)frequency);
         break;
+
+    case UI_MODE_BUTTON:
+        UI_PRINT("%cButton\n", cursor(0));
+        UI_PRINT("%c%s\n", cursor(1), buttonNames[buttonMode]);
+        UI_PRINT("%c\n", cursor(2));
 
     default:
         break;
@@ -105,6 +112,13 @@ void updateWav(int8_t direction)
     }
 }
 
+void updateButton(int8_t direction)
+{
+    if (uiCursor == 1) {
+        buttonMode = (buttonMode + direction + BUTTON_MODE_COUNT) % BUTTON_MODE_COUNT;
+    }
+}
+
 void rotaryChanged(int8_t direction)
 {
     if (edit) {
@@ -118,6 +132,10 @@ void rotaryChanged(int8_t direction)
 
             case UI_MODE_WAVE:
                 updateWav(direction);
+                break;
+
+            case UI_MODE_BUTTON:
+                updateButton(direction);
                 break;
 
             default:

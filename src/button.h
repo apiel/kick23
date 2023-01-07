@@ -6,7 +6,12 @@
 enum {
     BUTTON_TRIGGER,
     BUTTON_PATTERN2,
-    BUTTON_COUNT,
+    BUTTON_MODE_COUNT,
+};
+
+const char* buttonNames[BUTTON_MODE_COUNT] = {
+    "Trig",
+    "Pat2",
 };
 
 uint8_t buttonMode = BUTTON_PATTERN2;
