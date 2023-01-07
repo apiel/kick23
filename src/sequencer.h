@@ -1,6 +1,11 @@
 #ifndef SEQUENCER_H_
 #define SEQUENCER_H_
 
+#include <stdint.h>
+
+#include "def.h"
+#include "state.h"
+
 enum {
     STEP_MUTED,
     STEP_PLAYING,
@@ -28,7 +33,7 @@ enum {
     STEP_COUNT,
 };
 
-char *stepNames[STEP_COUNT] = {
+const char* stepNames[STEP_COUNT] = {
     "Muted",
     "Playing",
     "Pair",
@@ -54,8 +59,29 @@ char *stepNames[STEP_COUNT] = {
     "95%",
 };
 
-void seqNext() {
+unsigned int seqTime = 0;
+uint8_t seqPos = 0;
 
+bool seqNext()
+{
+    seqTime++;
+    if (seqTime >= sampleCountTempo) {
+        seqTime = 0;
+        seqPos++;
+        if (seqPos >= PATTERN_STEPS) {
+            seqPos = 0;
+        }
+        if (seqPos % 4 == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void setTempo(uint8_t _bpm = bpm)
+{
+    bpm = _bpm;
+    sampleCountTempo = SAMPLE_RATE * 60.0f / _bpm;
 }
 
 #endif

@@ -28,10 +28,19 @@ float IRAM_ATTR envelop()
     return (float)sampleCount / (float)sampleCountDuration;
 }
 
+void triggerSound()
+{
+    sampleCount = 0;
+    envelopAmpIndex = 0;
+    envelopFreqIndex = 0;
+}
+
 float sampleIndex = 0.0f;
 float IRAM_ATTR getSample()
 {
-    seqNext();
+    if (seqNext()) {
+        triggerSound();
+    }
     if (sampleCount < sampleCountDuration) {
         float envFreq = envelop(envelopFreq, &envelopFreqIndex);
         float envAmp = envelop(envelopAmp, &envelopAmpIndex);
@@ -44,13 +53,6 @@ float IRAM_ATTR getSample()
         return wavetable[wavetablePos + (uint16_t)sampleIndex] * envAmp * volume;
     }
     return 0;
-}
-
-void triggerSound()
-{
-    sampleCount = 0;
-    envelopAmpIndex = 0;
-    envelopFreqIndex = 0;
 }
 
 void buttonPressed()
