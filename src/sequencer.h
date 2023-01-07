@@ -10,11 +10,8 @@ enum {
     STEP_MUTED,
     STEP_PLAYING,
     STEP_EVERY_PAIR,
-    STEP_EVERY_THIRD,
     STEP_EVERY_FOURTH,
-    STEP_EVERY_FIFTH,
     STEP_EVERY_SIXTH,
-    STEP_EVERY_SEVENTH,
     STEP_EVERY_EIGHTH,
     STEP_EVERY_IMPAIR,
     STEP_1_PERCENT,
@@ -37,11 +34,8 @@ const char* stepNames[STEP_COUNT] = {
     "Muted",
     "Playing",
     "Pair",
-    "Third",
     "4th",
-    "5th",
     "6th",
-    "7th",
     "8th",
     "Impair",
     "1%",
@@ -70,7 +64,7 @@ uint8_t pattern[PATTERN_STEPS] = {
     STEP_MUTED,
 };
 
-uint8_t seqCounter = 0;
+uint8_t seqLoopCounter = 1; // Start at 1 else STEP_EVERY_PAIR, STEP_EVERY_THIRD, ... will be triggered at the beginning
 unsigned int seqTime = 0;
 uint8_t seqPos = 0;
 
@@ -82,9 +76,9 @@ bool seqNext()
         seqPos++;
         if (seqPos >= PATTERN_STEPS) {
             seqPos = 0;
-            seqCounter++;
-            if (seqCounter >= 8) { // 8 because of STEP_EVERY_EIGHTH
-                seqCounter = 0;
+            seqLoopCounter++;
+            if (seqLoopCounter >= 8) { // 8 because of STEP_EVERY_EIGHTH
+                seqLoopCounter = 0;
             }
         }
         switch (pattern[seqPos]) {
@@ -95,28 +89,19 @@ bool seqNext()
             return true;
 
         case STEP_EVERY_PAIR:
-            return seqCounter % 2 == 0;
-
-        case STEP_EVERY_THIRD:
-            return seqCounter % 3 == 0;
+            return seqLoopCounter % 2 == 0;
 
         case STEP_EVERY_FOURTH:
-            return seqCounter % 4 == 0;
-
-        case STEP_EVERY_FIFTH:
-            return seqCounter % 5 == 0;
+            return seqLoopCounter % 4 == 0;
 
         case STEP_EVERY_SIXTH:
-            return seqCounter % 6 == 0;
-
-        case STEP_EVERY_SEVENTH:
-            return seqCounter % 7 == 0;
+            return seqLoopCounter % 6 == 0;
 
         case STEP_EVERY_EIGHTH:
-            return seqCounter % 8 == 0;
+            return seqLoopCounter % 8 == 0;
 
         case STEP_EVERY_IMPAIR:
-            return seqCounter % 2 != 0;
+            return seqLoopCounter % 2 == 0;
 
         case STEP_1_PERCENT:
             return APP_RAND(100) == 0;
