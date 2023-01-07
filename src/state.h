@@ -12,7 +12,7 @@ unsigned int duration = 300; // in ms
 float volume = 1.0f;
 
 uint8_t bpm = 180;
-unsigned int sampleCountTempo = 0;
+unsigned int sampleCountPerStep = 0;
 
 unsigned int sampleCountDuration = duration * SAMPLE_PER_MS;
 unsigned int sampleCount = -1; // set it to max uint value so it will not trigger the kick at the beginning

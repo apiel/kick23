@@ -77,7 +77,7 @@ uint8_t seqPos = 0;
 bool seqNext()
 {
     seqTime++;
-    if (seqTime >= sampleCountTempo) {
+    if (seqTime >= sampleCountPerStep) {
         seqTime = 0;
         seqPos++;
         if (seqPos >= PATTERN_STEPS) {
@@ -164,7 +164,9 @@ bool seqNext()
 void setTempo(uint8_t _bpm = bpm)
 {
     bpm = _bpm;
-    sampleCountTempo = SAMPLE_RATE * 60.0f / _bpm;
+    unsigned int samplePerBeat = (float)SAMPLE_RATE * 60.0f / (float)_bpm;
+    sampleCountPerStep = samplePerBeat / 4;
+    // APP_LOG("Tempo: %d bpm, %d samples per beat %d samples per step\n", bpm, samplePerBeat, sampleCountPerStep);
 }
 
 #endif
