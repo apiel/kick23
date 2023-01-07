@@ -6,6 +6,15 @@
 #define APP_LOG printf
 #endif
 
+int appRand(int max)
+{
+    return rand() % max;
+}
+
+#ifndef APP_RAND
+#define APP_RAND appRand
+#endif
+
 #include "../src/app.h"
 
 #define SCREEN_W 480

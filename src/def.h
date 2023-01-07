@@ -10,6 +10,10 @@
 #define APP_LOG Serial.printf
 #endif
 
+#ifndef APP_RAND
+#define APP_RAND random
+#endif
+
 #ifndef SAMPLE_RATE
 #define SAMPLE_RATE 44100
 #endif

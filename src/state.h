@@ -11,7 +11,7 @@ unsigned int wavetablePos = 0;
 unsigned int duration = 300; // in ms
 float volume = 1.0f;
 
-uint8_t bpm = 120;
+uint8_t bpm = 180;
 unsigned int sampleCountTempo = 0;
 
 unsigned int sampleCountDuration = duration * SAMPLE_PER_MS;
