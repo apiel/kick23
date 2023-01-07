@@ -16,6 +16,8 @@
 
 enum {
     UI_MODE_MAIN,
+    // PRESET might be in main view depending screen size (preset need also save)
+    // as wave could move to main as well?
     UI_MODE_WAVE,
     UI_MODE_AMP,
     UI_MODE_FREQ,
@@ -45,6 +47,7 @@ void render()
         UI_PRINT("%c%dHz\n", cursor(2), (int)frequency);
         break;
 
+    // for AMP and FREQ, we might need multiple SCREEN like AMP1, AMP2, AMP3 depending screen size?
     case UI_MODE_AMP:
         UI_PRINT("%cAmp\n", cursor(0));
         UI_PRINT("%cM%.1f\n", cursor(1), morph);

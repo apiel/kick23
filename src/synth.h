@@ -6,6 +6,7 @@
 #include "def.h"
 #include "state.h"
 #include "wavetable.h"
+#include "sequencer.h"
 
 float IRAM_ATTR envelop(float (*envelop)[2], unsigned int* envelopIndex)
 {
@@ -30,6 +31,7 @@ float IRAM_ATTR envelop()
 float sampleIndex = 0.0f;
 float IRAM_ATTR getSample()
 {
+    seqNext();
     if (sampleCount < sampleCountDuration) {
         float envFreq = envelop(envelopFreq, &envelopFreqIndex);
         float envAmp = envelop(envelopAmp, &envelopAmpIndex);
