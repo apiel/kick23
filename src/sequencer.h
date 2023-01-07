@@ -61,7 +61,7 @@ uint8_t pattern[PATTERN_STEPS] = {
     STEP_PLAYING,
     STEP_MUTED,
     STEP_EVERY_FOURTH,
-    STEP_MUTED,
+    STEP_10_PERCENT,
 };
 
 uint8_t seqLoopCounter = 1; // Start at 1 else STEP_EVERY_PAIR, STEP_EVERY_THIRD, ... will be triggered at the beginning
