@@ -11,4 +11,8 @@
 #endif
 const float SAMPLE_PER_MS = SAMPLE_RATE / 1000.0f;
 
+#define ENVELOP_STEPS 5
+
+#define POT_COUNT 3
+
 #endif
