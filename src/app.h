@@ -1,8 +1,9 @@
 #ifndef APP_H_
 #define APP_H_
 
-#include "synth.h"
+#include "button.h"
 #include "sequencer.h"
+#include "synth.h"
 #include "ui.h"
 
 void appInit()

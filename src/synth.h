@@ -55,17 +55,6 @@ float IRAM_ATTR getSample()
     return 0;
 }
 
-void buttonPressed()
-{
-    // Here the button could do other function
-    triggerSound();
-}
-
-void buttonReleased()
-{
-    // Here the button could do other function
-}
-
 void updatePot(uint8_t potIndex, float value)
 {
     if (potIndex < POT_COUNT) {

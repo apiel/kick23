@@ -64,6 +64,19 @@ uint8_t pattern[PATTERN_STEPS] = {
     STEP_10_PERCENT,
 };
 
+uint8_t pattern2[PATTERN_STEPS] = {
+    STEP_PLAYING,
+    STEP_PLAYING,
+    STEP_PLAYING,
+    STEP_PLAYING,
+    STEP_PLAYING,
+    STEP_PLAYING,
+    STEP_PLAYING,
+    STEP_PLAYING,
+};
+
+uint8_t * patternPtr = pattern;
+
 uint8_t seqLoopCounter = 1; // Start at 1 else STEP_EVERY_PAIR, STEP_EVERY_THIRD, ... will be triggered at the beginning
 unsigned int seqTime = 0;
 uint8_t seqPos = 0;
@@ -81,7 +94,7 @@ bool seqNext()
                 seqLoopCounter = 0;
             }
         }
-        switch (pattern[seqPos]) {
+        switch (patternPtr[seqPos]) {
         case STEP_MUTED:
             return false;
 
