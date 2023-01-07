@@ -5,10 +5,6 @@
 
 #define SAMPLE_RATE AUDIO_TC_FREQ
 
-#ifndef APP_LOG
-#define APP_LOG Serial.printf
-#endif
-
 #include "synth.h"
 
 void audioCallback(const uint32_t* end, uint32_t* dest)

@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include "def.h"
+#include "rotary.h" // note necessary to be there, but just to avoid to include it in all main.h file for each board
 #include "state.h"
 #include "wavetable.h"
 
@@ -60,18 +61,6 @@ void buttonPressed()
 void buttonReleased()
 {
     // Here the button could do other function
-}
-
-int counterRT = 0;
-void rotaryChanged(int8_t direction)
-{
-    counterRT += direction;
-    APP_LOG("rotaryChanged: %d\n", counterRT);
-}
-
-void rotaryPressed()
-{
-    APP_LOG("rotaryPressed\n");
 }
 
 void updatePot(uint8_t potIndex, float value)

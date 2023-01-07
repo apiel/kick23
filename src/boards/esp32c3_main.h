@@ -1,13 +1,7 @@
 #include <Arduino.h>
 #include <U8g2lib.h>
 
-#ifndef APP_LOG
-#define APP_LOG Serial.printf
-#endif
-
-#include "def.h"
 #include "synth.h"
-#include "wavetable_square.h"
 
 #ifdef U8X8_HAVE_HW_SPI
 #include <SPI.h>

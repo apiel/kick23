@@ -5,10 +5,6 @@
 
 #define SAMPLE_RATE AUDIO_TC_FREQ
 
-#ifndef APP_LOG
-#define APP_LOG Serial.printf
-#endif
-
 #include "synth.h"
 
 Adafruit_NeoTrellisM4 trellis = Adafruit_NeoTrellisM4();

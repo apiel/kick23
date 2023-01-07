@@ -15,4 +15,8 @@ const float SAMPLE_PER_MS = SAMPLE_RATE / 1000.0f;
 
 #define POT_COUNT 3
 
+#ifndef APP_LOG
+#define APP_LOG Serial.printf
+#endif
+
 #endif
