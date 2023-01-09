@@ -1,6 +1,9 @@
 #ifndef COMPRESSOR_H_
 #define COMPRESSOR_H_
 
+// maybe https://github.com/newdigate/teensy-audio-multipressor/blob/master/effect_compressor.cpp
+// or https://github.com/chipaudette/OpenAudio_ArduinoLibrary/blob/master/AudioEffectCompressor2_F32.cpp
+
 /**
  * https://www.musicdsp.org/en/latest/Effects/169-compressor.html
  * 
@@ -152,7 +155,7 @@ class compressor
     }
 
 
-    void et_release(float value)
+    void set_release(float value)
     {
             release = exp(-1.f/value);
             envelope_decay = exp(-4.f/value); /* = exp(-1/(0.25*value)) */
