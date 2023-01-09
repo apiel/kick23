@@ -37,4 +37,40 @@ void updateMorph(float _morph)
     wavetablePos = (uint16_t)(morph / WAVETABLE_COUNT * (WAVETABLE_TOTAL_SIZE - WAVETABLE_SIZE));
 }
 
+/**
+ * @brief Update the duration of the kick (total envelope time)
+ * 
+ * @param _duration 
+ */
+void updateDuration(unsigned int _duration)
+{
+    duration = _duration;
+    if (duration < 10) {
+        duration = 10;
+    } else if (duration > 5000) {
+        duration = 5000;
+    }
+    sampleCountDuration = duration * SAMPLE_PER_MS;
+}
+
+void updateVolume(float _volume)
+{
+    volume = _volume;
+    if (volume < 0.0f) {
+        volume = 0.0f;
+    } else if (volume > 1.0f) {
+        volume = 1.0f;
+    }
+}
+
+void updateFrequency(float _frequency)
+{
+    frequency = _frequency;
+    if (frequency < 10.0f) {
+        frequency = 0.0f;
+    } else if (frequency > 2000.0f) {
+        frequency = 20000.0f;
+    }
+}
+
 #endif

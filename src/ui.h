@@ -76,19 +76,10 @@ void updateMain(int8_t direction)
 {
     if (uiCursor == 1) {
         duration += direction * 10;
-        if (duration < 10) {
-            duration = 10;
-        } else if (duration > 5000) {
-            duration = 5000;
-        }
-        sampleCountDuration = duration * SAMPLE_PER_MS;
+        updateDuration(duration);
     } else if (uiCursor == 2) {
         volume += direction * 0.01f;
-        if (volume < 0.0f) {
-            volume = 0.0f;
-        } else if (volume > 1.0f) {
-            volume = 1.0f;
-        }
+        updateVolume(volume);
     }
 }
 
@@ -99,11 +90,7 @@ void updateWav(int8_t direction)
         updateMorph(morph);
     } else if (uiCursor == 2) {
         frequency += direction * 10.0f;
-        if (frequency < 10.0f) {
-            frequency = 0.0f;
-        } else if (frequency > 2000.0f) {
-            frequency = 20000.0f;
-        }
+        updateFrequency(frequency);
     }
 }
 

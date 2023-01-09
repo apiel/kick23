@@ -63,17 +63,20 @@ bool handleKeyboard(SDL_KeyboardEvent* event)
     //     }
     //     break;
     // }
-    case 4: // A
+    case 82: // up
+    case 80: // left or macro rotary
         if (event->type == SDL_KEYDOWN) {
             rotaryChanged(-1);
         }
         break;
-    case 22: // S
+    case 7: // press macro rotary
+    case 4: // A
         if (event->type == SDL_KEYDOWN) {
             rotaryPressed();
         }
         break;
-    case 7: // D
+    case 81: // down
+    case 79: // right or macro rotary
         if (event->type == SDL_KEYDOWN) {
             rotaryChanged(+1);
         }
