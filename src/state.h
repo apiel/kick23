@@ -26,6 +26,9 @@ float envelopFreq[ENVELOP_STEPS][2] = { { 1.0f, 0.0f }, { 1.0f, 0.0f }, { 0.26f,
 unsigned int envelopAmpIndex = 0;
 unsigned int envelopFreqIndex = 0;
 
+float distortionAmount = 0.0;
+float distortionRange = 20.0;
+
 void updateMorph(float _morph)
 {
     morph = _morph;
@@ -39,8 +42,8 @@ void updateMorph(float _morph)
 
 /**
  * @brief Update the duration of the kick (total envelope time)
- * 
- * @param _duration 
+ *
+ * @param _duration
  */
 void updateDuration(unsigned int _duration)
 {

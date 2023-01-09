@@ -70,6 +70,7 @@ bool handleKeyboard(SDL_KeyboardEvent* event)
         }
         break;
     case 7: // press macro rotary
+    case 22: // S
     case 4: // A
         if (event->type == SDL_KEYDOWN) {
             rotaryPressed();

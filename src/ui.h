@@ -22,6 +22,7 @@ enum {
     UI_MODE_WAVE,
     UI_MODE_AMP,
     UI_MODE_FREQ,
+    UI_MODE_DISTORTION,
     UI_MODE_BUTTON,
     UI_MODE_COUNT
 };
@@ -62,6 +63,12 @@ void render()
         UI_PRINT("%c%dHz\n", cursor(2), (int)frequency);
         break;
 
+    case UI_MODE_DISTORTION:
+        UI_PRINT("%cDist\n", cursor(0));
+        UI_PRINT("%cA%.1f\n", cursor(1), distortionAmount);
+        UI_PRINT("%cR%.1f\n", cursor(2), distortionRange);
+        break;
+
     case UI_MODE_BUTTON:
         UI_PRINT("%cButton\n", cursor(0));
         UI_PRINT("%c%s\n", cursor(1), buttonNames[buttonMode]);
@@ -69,35 +76,6 @@ void render()
 
     default:
         break;
-    }
-}
-
-void updateMain(int8_t direction)
-{
-    if (uiCursor == 1) {
-        duration += direction * 10;
-        updateDuration(duration);
-    } else if (uiCursor == 2) {
-        volume += direction * 0.01f;
-        updateVolume(volume);
-    }
-}
-
-void updateWav(int8_t direction)
-{
-    if (uiCursor == 1) {
-        morph += direction * 0.1f;
-        updateMorph(morph);
-    } else if (uiCursor == 2) {
-        frequency += direction * 10.0f;
-        updateFrequency(frequency);
-    }
-}
-
-void updateButton(int8_t direction)
-{
-    if (uiCursor == 1) {
-        buttonMode = (buttonMode + direction + BUTTON_MODE_COUNT) % BUTTON_MODE_COUNT;
     }
 }
 
@@ -109,15 +87,39 @@ void rotaryChanged(int8_t direction)
         } else {
             switch (uiMode) {
             case UI_MODE_MAIN:
-                updateMain(direction);
+                if (uiCursor == 1) {
+                    duration += direction * 10;
+                    updateDuration(duration);
+                } else if (uiCursor == 2) {
+                    volume += direction * 0.01f;
+                    updateVolume(volume);
+                }
                 break;
 
             case UI_MODE_WAVE:
-                updateWav(direction);
+                if (uiCursor == 1) {
+                    morph += direction * 0.1f;
+                    updateMorph(morph);
+                } else if (uiCursor == 2) {
+                    frequency += direction * 10.0f;
+                    updateFrequency(frequency);
+                }
+                break;
+
+            case UI_MODE_DISTORTION:
+                if (uiCursor == 1) {
+                    distortionAmount += direction * 0.1f;
+                    setDistortion(distortionAmount);
+                } else if (uiCursor == 2) {
+                    distortionRange += direction * 1.0f;
+                    setDistortionRange(distortionRange);
+                }
                 break;
 
             case UI_MODE_BUTTON:
-                updateButton(direction);
+                if (uiCursor == 1) {
+                    buttonMode = (buttonMode + direction + BUTTON_MODE_COUNT) % BUTTON_MODE_COUNT;
+                }
                 break;
 
             default:
