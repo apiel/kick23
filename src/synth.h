@@ -7,6 +7,7 @@
 #include "state.h"
 #include "wavetable.h"
 #include "sequencer.h"
+#include "distortion.h"
 
 float IRAM_ATTR envelop(float (*envelop)[2], unsigned int* envelopIndex)
 {
@@ -50,7 +51,7 @@ float IRAM_ATTR getSample()
             sampleIndex -= WAVETABLE_SIZE;
         }
         sampleCount++;
-        return wavetable[wavetablePos + (uint16_t)sampleIndex] * envAmp * volume;
+        return distortion(wavetable[wavetablePos + (uint16_t)sampleIndex] * envAmp * volume);
     }
     return 0;
 }
@@ -60,6 +61,11 @@ void updatePot(uint8_t potIndex, float value)
     if (potIndex < POT_COUNT) {
         potValue[potIndex] = (int)roundf(value * 100.0f) * 0.01f;
     }
+}
+
+void initSynth()
+{
+    initDistortion();
 }
 
 #endif

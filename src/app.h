@@ -8,6 +8,7 @@
 
 void appInit()
 {
+    initSynth();
     render();
     setTempo();
 }
