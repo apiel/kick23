@@ -3,14 +3,14 @@
 
 #include <stdint.h>
 
+#include "button.h"
 #include "def.h"
 #include "state.h"
 #include "ui.h"
 #include "wavetable.h"
-#include "button.h"
 
 #ifndef UI_PRINT
-#define UI_PRINT printf
+#define UI_PRINT APP_LOG
 #endif
 
 #define UI_MAX_ROW 3
@@ -96,12 +96,7 @@ void updateWav(int8_t direction)
 {
     if (uiCursor == 1) {
         morph += direction * 0.1f;
-        if (morph < 0.0f) {
-            morph = 0.0f;
-        } else if (morph > WAVETABLE_COUNT) {
-            morph = WAVETABLE_COUNT;
-        }
-        wavetablePos = (uint16_t)(morph / WAVETABLE_COUNT * (WAVETABLE_TOTAL_SIZE - WAVETABLE_SIZE));
+        updateMorph(morph);
     } else if (uiCursor == 2) {
         frequency += direction * 10.0f;
         if (frequency < 10.0f) {

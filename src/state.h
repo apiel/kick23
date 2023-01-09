@@ -2,6 +2,7 @@
 #define STATE_H_
 
 #include "def.h"
+#include "wavetable.h"
 
 float potValue[POT_COUNT] = { 0, 0, 0 };
 
@@ -24,5 +25,16 @@ float envelopFreq[ENVELOP_STEPS][2] = { { 1.0f, 0.0f }, { 1.0f, 0.0f }, { 0.26f,
 
 unsigned int envelopAmpIndex = 0;
 unsigned int envelopFreqIndex = 0;
+
+void updateMorph(float _morph)
+{
+    morph = _morph;
+    if (morph < 0.0f) {
+        morph = 0.0f;
+    } else if (morph > WAVETABLE_COUNT) {
+        morph = WAVETABLE_COUNT;
+    }
+    wavetablePos = (uint16_t)(morph / WAVETABLE_COUNT * (WAVETABLE_TOTAL_SIZE - WAVETABLE_SIZE));
+}
 
 #endif
